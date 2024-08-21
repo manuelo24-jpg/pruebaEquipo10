@@ -39,7 +39,8 @@ const agregarHeroe = () => {
       <h1>Héroe insertado</h1>
       <DatosHeroeFormulario v-bind="nuevoHeroe" />
     </div>
-    <div>
+    <div class="listaHeroes">
+      <h1>Lista de Héroes</h1>
       <DatosHeroes :heroes="heroes" />
     </div>
   </div>
@@ -48,13 +49,27 @@ const agregarHeroe = () => {
 <style scoped>
 .contenedor {
   display: flex;
-  flex-direction: row;
-  gap: 1rem;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  padding: 2rem;
+  background-color: #f9f9f9;
 }
 
 .formularioInsercion,
-.heroeInsertado {
-  margin-top: 1rem;
+.heroeInsertado,
+.listaHeroes {
+  width: 100%;
+  max-width: 600px;
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  text-align: center;
+  color: #333;
 }
 
 header {
@@ -67,20 +82,15 @@ header {
 }
 
 @media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
+  .contenedor {
+    flex-direction: row;
+    justify-content: space-around;
   }
 
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
+  .formularioInsercion,
+  .heroeInsertado,
+  .listaHeroes {
+    max-width: 300px;
   }
 }
 </style>

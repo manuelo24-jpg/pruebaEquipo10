@@ -24,10 +24,22 @@ watch([nombre, liga, peso, raza], ([newNombre, newLiga, newPeso, newRaza]) => {
     raza: newRaza,
   });
 });
+
+const resetForm = () => {
+  nombre.value = "";
+  liga.value = "";
+  peso.value = 0;
+  raza.value = "";
+};
 </script>
 
 <template>
-  <form @submit.prevent="emit('agregarHeroe')">
+  <form
+    @submit.prevent="
+      emit('agregarHeroe');
+      resetForm();
+    "
+  >
     <label for="nombre">Nombre:</label>
     <input type="text" id="nombre" v-model="nombre" />
     <label for="liga">Liga:</label>
