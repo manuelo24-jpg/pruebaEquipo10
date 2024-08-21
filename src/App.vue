@@ -1,6 +1,15 @@
 <script setup>
 import HelloWorld from "./components/HelloWorld.vue";
 import TheWelcome from "./components/TheWelcome.vue";
+
+const heroes = [
+  { nombre: "Batman", liga: "liga2", peso: 85, raza: "humano" },
+  { nombre: "Superman", liga: "liga2", peso: 95, raza: "kryptoniano" },
+  { nombre: "Superman", liga: "liga2", peso: 95, raza: "kryptoniano" },
+  { nombre: "Superman", liga: "liga2", peso: 95, raza: "kryptoniano" },
+  { nombre: "Superman", liga: "liga2", peso: 95, raza: "kryptoniano" },
+  { nombre: "Superman", liga: "liga2", peso: 95, raza: "kryptoniano" },
+];
 </script>
 
 <template></template>
