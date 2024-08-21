@@ -1,6 +1,8 @@
 <script setup>
 import HelloWorld from "./components/HelloWorld.vue";
 import TheWelcome from "./components/TheWelcome.vue";
+import DatosHeroeFormulario from "./components/DatosHeroeFormulario.vue";
+import FormularioHeroe from "./components/FomularioHeroe.vue";
 import DatosHeroes from "./components/DatosHeroes.vue";
 
 const heroes = [
@@ -14,6 +16,16 @@ const heroes = [
 </script>
 
 <template>
+  <div>
+    <h1>Insercción Héroe</h1>
+   <FormularioHeroe/>
+  </div>
+  <div>
+    <h1>Héroe insertado</h1>
+   
+      <DatosHeroeFormulario/>
+ 
+  </div>
   <DatosHeroes :heroes="heroes" />
 </template>
 
