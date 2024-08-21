@@ -1,6 +1,7 @@
 <script setup>
 import HelloWorld from "./components/HelloWorld.vue";
 import TheWelcome from "./components/TheWelcome.vue";
+import DatosHeroeFormulario from "./components/DatosHeroeFormulario.vue";
 
 const heroes = [
   { nombre: "Batman", liga: "liga2", peso: 85, raza: "humano" },
@@ -12,7 +13,19 @@ const heroes = [
 ];
 </script>
 
-<template></template>
+<template>
+  <div>
+    <h1>Lista de Héroes</h1>
+    <div v-for="(heroe, index) in heroes" :key="index">
+      <DatosHeroeFormulario
+        :nombre="heroe.nombre"
+        :liga="heroe.liga"
+        :peso="heroe.peso"
+        :raza="heroe.raza"
+      />
+    </div>
+  </div>
+</template>
 
 <style scoped>
 header {
