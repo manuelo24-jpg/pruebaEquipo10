@@ -20,7 +20,6 @@ const heroes = ref([
 
 const agregarHeroe = (heroe) => {
   if (heroe.id) {
-    // Editar héroe existente
     const index = heroes.value.findIndex((h) => h.id === heroe.id);
     if (index !== -1) {
       if (
@@ -30,7 +29,6 @@ const agregarHeroe = (heroe) => {
       }
     }
   } else {
-    // Agregar nuevo héroe
     heroes.value.push({ ...heroe, id: Date.now() });
   }
   resetNuevoHeroe();
