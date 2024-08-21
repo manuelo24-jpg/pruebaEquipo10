@@ -2,11 +2,13 @@
 
 #app {
   display: flex;
-  justify-content: center !important;
+  justify-content: center ;
   margin: 0 auto;
   padding: 2rem;
   font-weight: normal;
 }
+
+body
 
 a,
 .green {
@@ -28,9 +30,4 @@ a,
     place-items: center;
   }
 
-  #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
-  }
 }
