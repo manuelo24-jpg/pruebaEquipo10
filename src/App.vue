@@ -1,28 +1,57 @@
 <script setup>
 import { ref } from "vue";
-import FormularioHeroe from "./components/FomularioHeroe.vue";
+import FormularioHeroe from "./components/FormularioHeroe.vue";
 import DatosHeroeFormulario from "./components/DatosHeroeFormulario.vue";
 import DatosHeroes from "./components/DatosHeroes.vue";
 
-const heroes = ref([
-  { nombre: "Batman", liga: "liga2", peso: 85, raza: "humano" },
-  { nombre: "Superman", liga: "liga2", peso: 95, raza: "kryptoniano" },
-  { nombre: "Mujer Maravilla", liga: "liga3", peso: 60, raza: "humana" },
-  { nombre: "Flash", liga: "liga1", peso: 67, raza: "humano" },
-  { nombre: "Linterna", liga: "liga2", peso: 79, raza: "Mandaloriano" },
-  { nombre: "Americaman", liga: "liga11", peso: 95, raza: "Estadounidense" },
-]);
-
 const nuevoHeroe = ref({
+  id: null,
   nombre: "",
   liga: "",
   peso: 0,
   raza: "",
 });
 
-const agregarHeroe = () => {
-  heroes.value.push({ ...nuevoHeroe.value });
-  nuevoHeroe.value = { nombre: "", liga: "", peso: 0, raza: "" };
+const heroes = ref([
+  { id: 1, nombre: "Superman", liga: "DC", peso: 100, raza: "Kryptonian" },
+  { id: 2, nombre: "Batman", liga: "DC", peso: 95, raza: "Human" },
+  { id: 3, nombre: "Spiderman", liga: "Marvel", peso: 75, raza: "Human" },
+]);
+
+const agregarHeroe = (heroe) => {
+  if (heroe.id) {
+    // Editar héroe existente
+    const index = heroes.value.findIndex((h) => h.id === heroe.id);
+    if (index !== -1) {
+      if (
+        window.confirm("¿Estás seguro de que quieres actualizar este héroe?")
+      ) {
+        heroes.value[index] = { ...heroe };
+      }
+    }
+  } else {
+    // Agregar nuevo héroe
+    heroes.value.push({ ...heroe, id: Date.now() });
+  }
+  resetNuevoHeroe();
+};
+
+const resetNuevoHeroe = () => {
+  nuevoHeroe.value = {
+    id: null,
+    nombre: "",
+    liga: "",
+    peso: 0,
+    raza: "",
+  };
+};
+
+const deleteHeroe = (heroe) => {
+  heroes.value = heroes.value.filter((h) => h.id !== heroe.id);
+};
+
+const editHeroe = (heroe) => {
+  nuevoHeroe.value = { ...heroe };
 };
 </script>
 
@@ -33,6 +62,8 @@ const agregarHeroe = () => {
       <FormularioHeroe
         v-model:nuevoHeroe="nuevoHeroe"
         @agregarHeroe="agregarHeroe"
+        @deleteHeroe="deleteHeroe"
+        @editHeroe="editHeroe"
       />
     </div>
     <div class="heroeInsertado">
@@ -41,56 +72,11 @@ const agregarHeroe = () => {
     </div>
     <div class="listaHeroes">
       <h1>Lista de Héroes</h1>
-      <DatosHeroes :heroes="heroes" />
+      <DatosHeroes
+        :heroes="heroes"
+        @deleteHeroe="deleteHeroe"
+        @editHeroe="editHeroe"
+      />
     </div>
   </div>
 </template>
-
-<style scoped>
-.contenedor {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2rem;
-  padding: 2rem;
-  background-color: #f9f9f9;
-}
-
-.formularioInsercion,
-.heroeInsertado,
-.listaHeroes {
-  width: 100%;
-  max-width: 600px;
-  background: white;
-  padding: 1.5rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-h1 {
-  text-align: center;
-  color: #333;
-}
-
-header {
-  line-height: 1.5;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-@media (min-width: 1024px) {
-  .contenedor {
-    flex-direction: row;
-    justify-content: space-around;
-  }
-
-  .formularioInsercion,
-  .heroeInsertado,
-  .listaHeroes {
-    max-width: 300px;
-  }
-}
-</style>

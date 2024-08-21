@@ -1,14 +1,7 @@
 <script setup>
-import { ref, watch } from "vue";
-import { defineEmits, defineProps } from "vue";
+import { ref, watch, defineEmits, defineProps } from "vue";
 
-const props = defineProps({
-  nuevoHeroe: {
-    type: Object,
-    required: true,
-  },
-});
-
+const props = defineProps(["nuevoHeroe"]);
 const emit = defineEmits(["update:nuevoHeroe", "agregarHeroe"]);
 
 const nombre = ref(props.nuevoHeroe.nombre);
@@ -16,14 +9,42 @@ const liga = ref(props.nuevoHeroe.liga);
 const peso = ref(props.nuevoHeroe.peso);
 const raza = ref(props.nuevoHeroe.raza);
 
+watch(
+  () => props.nuevoHeroe,
+  (newHeroe) => {
+    nombre.value = newHeroe.nombre;
+    liga.value = newHeroe.liga;
+    peso.value = newHeroe.peso;
+    raza.value = newHeroe.raza;
+  },
+  { immediate: true }
+);
+
 watch([nombre, liga, peso, raza], ([newNombre, newLiga, newPeso, newRaza]) => {
   emit("update:nuevoHeroe", {
+    id: props.nuevoHeroe.id,
     nombre: newNombre,
     liga: newLiga,
     peso: newPeso,
     raza: newRaza,
   });
 });
+
+const agregarHeroe = () => {
+  if (
+    props.nuevoHeroe.id &&
+    !window.confirm("¿Estás seguro de que quieres actualizar este héroe?")
+  ) {
+    return;
+  }
+  emit("agregarHeroe", {
+    id: props.nuevoHeroe.id,
+    nombre: nombre.value,
+    liga: liga.value,
+    peso: peso.value,
+    raza: raza.value,
+  });
+};
 
 const resetForm = () => {
   nombre.value = "";
@@ -34,20 +55,14 @@ const resetForm = () => {
 </script>
 
 <template>
-  <form
-    @submit.prevent="
-      emit('agregarHeroe');
-      resetForm();
-    "
-  >
-    <label for="nombre">Nombre:</label>
-    <input type="text" id="nombre" v-model="nombre" />
-    <label for="liga">Liga:</label>
-    <input type="text" id="liga" v-model="liga" />
-    <label for="peso">Peso:</label>
-    <input type="number" id="peso" v-model="peso" />
-    <label for="raza">Raza:</label>
-    <input type="text" id="raza" v-model="raza" />
-    <button type="submit">Enviar</button>
+  <form @submit.prevent="agregarHeroe">
+    <input v-model="nombre" placeholder="Nombre" />
+    <input v-model="liga" placeholder="Liga" />
+    <input v-model="peso" type="number" placeholder="Peso" />
+    <input v-model="raza" placeholder="Raza" />
+    <button type="submit">
+      {{ props.nuevoHeroe.id ? "Actualizar" : "Guardar" }}
+    </button>
+    <button type="button" @click="resetForm">Resetear</button>
   </form>
 </template>
