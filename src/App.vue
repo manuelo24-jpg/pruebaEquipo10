@@ -1,18 +1,21 @@
 <script setup>
 import HelloWorld from "./components/HelloWorld.vue";
 import TheWelcome from "./components/TheWelcome.vue";
+import DatosHeroes from "./components/DatosHeroes.vue";
 
 const heroes = [
   { nombre: "Batman", liga: "liga2", peso: 85, raza: "humano" },
   { nombre: "Superman", liga: "liga2", peso: 95, raza: "kryptoniano" },
-  { nombre: "Superman", liga: "liga2", peso: 95, raza: "kryptoniano" },
-  { nombre: "Superman", liga: "liga2", peso: 95, raza: "kryptoniano" },
-  { nombre: "Superman", liga: "liga2", peso: 95, raza: "kryptoniano" },
-  { nombre: "Superman", liga: "liga2", peso: 95, raza: "kryptoniano" },
+  { nombre: "Mujer Maravilla", liga: "liga3", peso: 60, raza: "humana" },
+  { nombre: "Flash", liga: "liga1", peso: 67, raza: "humano" },
+  { nombre: "Linterna", liga: "liga2", peso: 79, raza: "Mandaloriano" },
+  { nombre: "Americaman", liga: "liga11", peso: 95, raza: "Estadounidense" },
 ];
 </script>
 
-<template></template>
+<template>
+  <DatosHeroes :heroes="heroes" />
+</template>
 
 <style scoped>
 header {
