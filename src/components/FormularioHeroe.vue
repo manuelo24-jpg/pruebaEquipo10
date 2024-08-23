@@ -1,8 +1,11 @@
 <script setup>
 import { ref, watch, defineEmits, defineProps } from "vue";
+import { useRouter, useRoute } from "vue-router";
 
 const props = defineProps(["nuevoHeroe"]);
 const emit = defineEmits(["update:nuevoHeroe", "agregarHeroe"]);
+const router = useRouter();
+const route = useRoute();
 
 const nombre = ref(props.nuevoHeroe.nombre);
 const liga = ref(props.nuevoHeroe.liga);
@@ -44,6 +47,7 @@ const agregarHeroe = () => {
     peso: peso.value,
     raza: raza.value,
   });
+  router.push("/");
 };
 
 const resetForm = () => {

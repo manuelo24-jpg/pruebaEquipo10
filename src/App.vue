@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from "vue";
+import { useRouter } from "vue-router";
 import FormularioHeroe from "./components/FormularioHeroe.vue";
-import DatosHeroeFormulario from "./components/DatosHeroeFormulario.vue";
 import DatosHeroes from "./components/DatosHeroes.vue";
 
 const nuevoHeroe = ref({
@@ -51,30 +51,42 @@ const deleteHeroe = (heroe) => {
 const editHeroe = (heroe) => {
   nuevoHeroe.value = { ...heroe };
 };
+
+const router = useRouter();
 </script>
 
 <template>
   <div class="contenedor">
-    <div class="formularioInsercion">
-      <h1>Insercción Héroe</h1>
-      <FormularioHeroe
-        v-model:nuevoHeroe="nuevoHeroe"
-        @agregarHeroe="agregarHeroe"
-        @deleteHeroe="deleteHeroe"
-        @editHeroe="editHeroe"
-      />
-    </div>
-    <div class="heroeInsertado">
-      <h1>Héroe insertado</h1>
-      <DatosHeroeFormulario v-bind="nuevoHeroe" />
-    </div>
-    <div class="listaHeroes">
-      <h1>Lista de Héroes</h1>
-      <DatosHeroes
-        :heroes="heroes"
-        @deleteHeroe="deleteHeroe"
-        @editHeroe="editHeroe"
-      />
-    </div>
+    <!-- Enlaces de navegación -->
+    <nav>
+      <router-link to="/">Ver Héroes</router-link> |
+      <router-link to="/agregar-heroe">Agregar Héroe</router-link>
+    </nav>
+
+    <!-- Renderizado de la vista seleccionada -->
+    <router-view
+      :nuevoHeroe="nuevoHeroe"
+      :heroes="heroes"
+      @agregarHeroe="agregarHeroe"
+      @deleteHeroe="deleteHeroe"
+      @editHeroe="editHeroe"
+    />
   </div>
 </template>
+
+<style scoped>
+nav {
+  margin-bottom: 20px;
+}
+
+nav a {
+  margin-right: 10px;
+  text-decoration: none;
+  color: #42b983;
+}
+
+nav a.router-link-active {
+  font-weight: bold;
+  color: #35495e;
+}
+</style>
